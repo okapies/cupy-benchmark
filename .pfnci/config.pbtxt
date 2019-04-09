@@ -1,0 +1,36 @@
+configs {
+  key: "cupy-benchmark"  # project name
+  value {
+    requirement {
+      cpu: 4
+      memory: 16
+      gpu: 1
+      disk: 10
+      image: "imosci"
+    }
+    time_limit {
+      seconds: 7200  # 2 hours
+    }
+    command:
+        "bash -ex .pfnci/benchmark.sh\n"
+  }
+}
+
+configs {
+  key: "cupy-benchmark-all"  # project name
+  value {
+    requirement {
+      cpu: 4
+      memory: 16
+      gpu: 1
+      disk: 10
+      premium: true
+      image: "imosci"
+    }
+    time_limit {
+      seconds: 172800  # 2 days
+    }
+    command:
+        "bash -ex .pfnci/benchmark_all.sh\n"
+  }
+}

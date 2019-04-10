@@ -33,9 +33,9 @@ done
 test -n "${ARG_BRANCHES}" || { echo "--branches is not specified" 1>&2; exit 1; }
 
 # Configuring machine information
+# Note: `asv machine --machine [...] --yes` doesn't collect information
 asv machine --yes
 if [ -n "${ARG_MACHINE}" ]; then
-    # `asv machine --machine [...] --yes` doesn't work properly
     asv machine --machine=${ARG_MACHINE}
 fi
 

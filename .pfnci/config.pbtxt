@@ -34,3 +34,20 @@ configs {
         "bash -ex .pfnci/benchmark_all.sh\n"
   }
 }
+
+configs {
+  key: "cupy-benchmark-publish"  # project name
+  value {
+    requirement {
+      cpu: 2
+      memory: 8
+      disk: 10
+      image: "imosci"
+    }
+    time_limit {
+      seconds: 3600  # 1 hours
+    }
+    command:
+        "bash -ex .pfnci/benchmark_publish.sh\n"
+  }
+}

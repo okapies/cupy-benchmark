@@ -33,7 +33,6 @@ while [[ $# != 0 ]]; do
         *)
             break
             ;;
-
     esac
 done
 
@@ -53,7 +52,8 @@ readonly DEST_MACHINE_JSON=$(mktemp --suffix='-machine.json')
 trap 'rm -f "${SRC_MACHINE_JSON}" "${DEST_MACHINE_JSON}"' 1 2 3 15 EXIT
 
 # Load helper functions
-source ${BASE_DIR}/gcp_helper.sh
+source ${BASE_DIR}/utils.sh
+source ${BASE_DIR}/gcp_utils.sh
 
 # Check if machine.json is stable
 cat ${SRC_DIR}/${ARG_MACHINE}/${MACHINE_JSON} | jq -S . > ${SRC_MACHINE_JSON}
@@ -69,4 +69,10 @@ fi
 
 # Upload all .json in RESULTS_DIR/ARG_MACHINE (including machine.json)
 ${GSUTIL_CMD} cp -z json ${SRC_DIR}/benchmarks.json ${GS_DEST_DIR}/benchmarks.json
-${GSUTIL_CMD} cp -z json ${SRC_DIR}/${ARG_MACHINE}/*.json ${GS_DEST_DIR}/${ARG_MACHINE}
+${GSUTIL_CMD} \
+    -o "GSUtil:parallel_process_count="$(nproc) \
+    -o "GSUtil:parallel_thread_count=1" \
+    -m \
+    cp \
+    -z json \
+    ${SRC_DIR}/${ARG_MACHINE}/*.json ${GS_DEST_DIR}/${ARG_MACHINE}

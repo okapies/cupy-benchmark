@@ -12,7 +12,7 @@ configs {
       seconds: 7200  # 2 hours
     }
     command:
-        "bash -ex .pfnci/benchmark.sh\n"
+        "bash -ex .pfnci/benchmark.sh --commits master\n"
   }
 }
 
@@ -48,6 +48,6 @@ configs {
       seconds: 3600  # 1 hours
     }
     command:
-        "bash -ex .pfnci/benchmark_publish.sh\n"
+        "bash -ex .pfnci/publish_results.sh\n"
   }
 }

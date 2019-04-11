@@ -10,7 +10,7 @@ readonly CPU_CORES=$(cat /proc/cpuinfo | sed -nr '/cpu cores/ s/.*:\s*(.*).*/\1/
 
 readonly MEM_SIZE=$(cat /proc/meminfo | sed -nr '/MemTotal/ s/.*:\s*(.*).*/\1/p' | awk '{ printf "%d", $1/1024/1024 ; exit}' | head -n1)
 
-if smi_loc="$(type -p "nvidia-smi")" && [[ -n "$smi_loc" ]]; then
+if command -v nvidia-smi >/dev/null 2>&1; then
     readonly GPU_MODEL_NAME=$(nvidia-smi --query-gpu=gpu_name,memory.total --format=csv,noheader | head -n1 | awk -F', ' '{print $1 " " $2}')
 fi
 

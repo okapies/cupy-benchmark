@@ -31,7 +31,7 @@ configs {
       seconds: 172800  # 2 days
     }
     command:
-        "bash -ex .pfnci/benchmark_all.sh\n"
+        "bash -ex .pfnci/benchmark_tags.sh --pattern '*'\n"
   }
 }
 

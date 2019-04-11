@@ -28,7 +28,7 @@ while [[ $# != 0 ]]; do
             ;;
         -*)
             echo Unknown option \"$1\" 1>&2
-            exit
+            exit 1
             ;;
         *)
             break

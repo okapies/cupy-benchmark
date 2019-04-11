@@ -24,7 +24,7 @@ while [[ $# != 0 ]]; do
             ;;
         -*)
             echo Unknown option \"$1\" 1>&2
-            exit
+            exit 1
             ;;
         *)
             break
@@ -39,18 +39,22 @@ if [ -z "${ARG_FORCE}" ]; then
     readonly OPT_SKIP_EXISTING='--skip-existing-successful'
 fi
 
+# Avoid stdout and stderr streams to be buffered in Python
+export PYTHONUNBUFFERED=1
+
 # Configuring machine information
 # Note: `asv machine --machine [...] --yes` doesn't collect information
 asv machine --yes
 if [ -n "${ARG_MACHINE}" ]; then
-    asv machine --machine=${ARG_MACHINE}
+    asv machine --machine=${ARG_MACHINE} --yes
+    readonly OPT_MACHINE=--machine=${ARG_MACHINE}
 fi
 MACHINE_INFO=$(cat ~/.asv-machine.json | jq ".[\"${ARG_MACHINE}\"]")
 test -n "${MACHINE_INFO}" || { echo 'Failed to configure `asv machine`' 1>&2; exit 1; }
 
 # Run benchmark(s) in Docker container
 asv run \
-    --machine "${ARG_MACHINE}" \
+    ${OPT_MACHINE} \
     ${OPT_SKIP_EXISTING} \
     --step 1 \
     --parallel $(nproc) \

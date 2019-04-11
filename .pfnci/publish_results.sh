@@ -29,10 +29,12 @@ docker run \
     -v /etc/group:/etc/group:ro -v /etc/passwd:/etc/passwd:ro \
     -u $(id -u $USER):$(id -g $USER) \
     -v ${ROOT_DIR}:/work --workdir=/work \
+    -e PYTHONUNBUFFERED=1 \
     "${IMAGE_ID}" \
     asv publish --html-dir ./${HTML_DIR}
 
 # Publish the website to the public bucket
+# TODO: enable gzip compression
 ${GSUTIL_CMD} -m rsync -r ${HTML_SRC_DIR} ${GS_HTML_DEST_DIR}
 
 echo "Uploaded to https://storage.googleapis.com/${WEBSITE_BUCKET_NAME}/${PROJECT_NAME}/index.html"

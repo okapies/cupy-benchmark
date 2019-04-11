@@ -25,7 +25,7 @@ while [[ $# != 0 ]]; do
             ;;
         -*)
             echo Unknown option \"$1\" 1>&2
-            exit
+            exit 1
             ;;
         *)
             break
@@ -59,7 +59,7 @@ docker run \
         --commits "${ARG_COMMITS}" \
     || true  # considered to be successful even if the benchmark fails
 
-# Upload the results
+# Upload the result
 bash -e .pfnci/upload_results.sh \
     --bucket "${BUCKET_NAME}" \
     --project "${PROJECT_NAME}" \

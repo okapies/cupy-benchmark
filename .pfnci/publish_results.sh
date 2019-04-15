@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-IMAGE_ID='okapies/cupy-benchmark:cuda9.2-cudnn7'
+IMAGE_ID='cupy/cupy-benchmark:cuda9.2-cudnn7'
 
 RESULT_BUCKET_NAME=chainer-pfn-private-ci
 WEBSITE_BUCKET_NAME=chainer-artifacts-pfn-public-ci

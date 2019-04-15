@@ -3,6 +3,8 @@ CuPy Benchmark
 
 Benchmarking CuPy with Airspeed Velocity.
 
+`Here <https://storage.googleapis.com/chainer-artifacts-pfn-public-ci/cupy-benchmark/index.html>`_ is the result for all the past releases and the latest commits.
+
 Requirements
 ------------
 

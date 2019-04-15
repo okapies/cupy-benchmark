@@ -14,11 +14,11 @@ if command -v nvidia-smi >/dev/null 2>&1; then
     readonly GPU_MODEL_NAME=$(nvidia-smi --query-gpu=gpu_name,memory.total --format=csv,noheader | head -n1 | awk -F', ' '{print $1 " " $2}')
 fi
 
-# e.g. Intel Xeon CPU E5-2630 v3 @ 2.40GHz (8 cores) + 62GB + Quadro K420 979 MiB + CUDA9.2 + CUDNN7
+# e.g. Intel Xeon CPU E5-2630 v3 @ 2.40GHz (8 cores) + 62GB + Quadro K420 979 MiB
 MACHINE_DESC="${CPU_MODEL_NAME} (${CPU_CORES} cores) + ${MEM_SIZE}GB"
 if [ -n "${GPU_MODEL_NAME}" ]; then
     MACHINE_DESC=${MACHINE_DESC}' + '${GPU_MODEL_NAME}
 fi
 
-# e.g. intel-xeon-cpu-e5-2630-v3-2-40ghz-8-cores-62gb-quadro-k420-979-mib-cuda9-2-cudnn7
+# e.g. intel-xeon-cpu-e5-2630-v3-2-40ghz-8-cores-62gb-quadro-k420-979-mib
 readonly MACHINE_ID=$(echo "${MACHINE_DESC}" | slugify)
